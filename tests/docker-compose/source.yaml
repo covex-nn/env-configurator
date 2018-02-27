@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+    mysql:
+        image: mysql:5.7
+        networks:
+            - default
+            - another
+        volumes:
+            - database:/var/lib/mysql
+    php:
+        image: php:latest
+        networks:
+            - default
+        volumes:
+            - another:/tmp
+
+networks:
+    default:
+        driver: foo
+    another:
+    not_used:
+
+volumes:
+    database:
+        driver: bar
+    another:
+    not_used:

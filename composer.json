@@ -1,0 +1,45 @@
+{
+    "name": "covex-nn/service-configurator",
+    "type": "library",
+    "descrition": "",
+    "keywords": [
+        "docker",
+        "gitlab"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrey F. Mindubaev",
+            "email": "covex.mobile@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "composer/semver": "^1.0",
+        "symfony/yaml": "^2.8 || ^3.4 || ^4.0"
+    },
+    "require-dev": {
+        "covex-nn/vfs": "1.x-dev"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Covex\\ServiceConfigurator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Covex\\ServiceConfigurator\\Tests\\": "tests/"
+        }
+    }
+}
