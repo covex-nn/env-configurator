@@ -19,7 +19,7 @@
         "symfony/yaml": "^2.8 || ^3.4 || ^4.0"
     },
     "require-dev": {
-        "covex-nn/vfs": "1.x-dev"
+        "covex-nn/vfs": "^1.0"
     },
     "config": {
         "preferred-install": {
