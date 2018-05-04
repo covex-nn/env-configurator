@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Covex\ServiceConfigurator\Tests;
 
 use Covex\ServiceConfigurator\DockerCompose;
-use Covex\ServiceConfigurator\DockerCompose\Definition;
+use Covex\ServiceConfigurator\DockerComposeDefinition;
 use Covex\Stream\FileSystem;
 use PHPUnit\Framework\TestCase;
 
@@ -36,7 +36,7 @@ class DockerComposeTest extends TestCase
             ->setTarget('vfs://new.yaml')
             ->apply();
 
-        $data = Definition::parseFile('vfs://new.yaml')
+        $data = (new DockerComposeDefinition('vfs://new.yaml'))
             ->getData();
 
         $this->assertSame([
@@ -74,9 +74,8 @@ class DockerComposeTest extends TestCase
             ->setTarget('vfs://destination-version.yaml')
             ->apply();
 
-        $data = Definition::parseFile('vfs://destination-version.yaml')
-            ->getData();
-        $this->assertEquals('3.6', $data['version']);
+        $definition = new DockerComposeDefinition('vfs://destination-version.yaml');
+        $this->assertEquals('3.6', $definition->getVersion());
     }
 
     public function testOverrideVolumes(): void
@@ -87,7 +86,7 @@ class DockerComposeTest extends TestCase
             ->setTarget('vfs://destination-volumes.yaml')
             ->apply();
 
-        $data = Definition::parseFile('vfs://destination-volumes.yaml')
+        $data = (new DockerComposeDefinition('vfs://destination-volumes.yaml'))
             ->getData();
         $this->assertSame([
             'database' => [],
@@ -104,7 +103,7 @@ class DockerComposeTest extends TestCase
             ->setTarget('vfs://destination-networks.yaml')
             ->apply();
 
-        $data = Definition::parseFile('vfs://destination-networks.yaml')
+        $data = (new DockerComposeDefinition('vfs://destination-networks.yaml'))
             ->getData();
         $this->assertSame([
             'default' => [],
@@ -121,7 +120,7 @@ class DockerComposeTest extends TestCase
             ->setTarget('vfs://destination-service.yaml')
             ->apply();
 
-        $data = Definition::parseFile('vfs://destination-service.yaml')
+        $data = (new DockerComposeDefinition('vfs://destination-service.yaml'))
             ->getData();
         $this->assertSame([
             'version' => '3.2',

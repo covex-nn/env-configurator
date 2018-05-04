@@ -25,10 +25,10 @@ class DockerCompose extends ConfiguratorAbstract
         $sourcePath = $this->getSource();
         $targetPath = $this->getTarget();
 
-        $source = DockerCompose\Definition::parseFile($sourcePath);
+        $source = new DockerComposeDefinition($sourcePath);
 
         if (file_exists($targetPath)) {
-            $target = DockerCompose\Definition::parseFile($targetPath);
+            $target = new DockerComposeDefinition($targetPath);
 
             if (Comparator::greaterThan($target->getVersion(), $source->getVersion())) {
                 $source->setVersion($target->getVersion());
@@ -50,6 +50,6 @@ class DockerCompose extends ConfiguratorAbstract
             }
         }
 
-        $source->dump($targetPath);
+        file_put_contents($targetPath, $source->dump());
     }
 }

@@ -9,29 +9,38 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\ServiceConfigurator\DockerCompose;
+namespace Covex\ServiceConfigurator;
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * docker-compose.yaml file representation.
  */
-class Definition
+class DockerComposeDefinition implements DefinitionInterface
 {
-    /**
-     * @var string
-     */
-    private $path;
-
     /**
      * @var array
      */
     private $data;
 
-    private function __construct(string $path, array $data)
+    public function __construct(string $path)
     {
-        $this->path = $path;
-        $this->data = $data;
+        $this->data = Yaml::parseFile($path);
+
+        if (isset($this->data['networks'])) {
+            foreach ($this->data['networks'] as $name => $value) {
+                if (null === $value) {
+                    $this->data['networks'][$name] = [];
+                }
+            }
+        }
+        if (isset($this->data['volumes'])) {
+            foreach ($this->data['volumes'] as $name => $value) {
+                if (null === $value) {
+                    $this->data['volumes'][$name] = [];
+                }
+            }
+        }
     }
 
     public function getVersion(): string
@@ -157,33 +166,9 @@ class Definition
         return $this->data;
     }
 
-    public function dump(?string $path = null): void
+    public function dump(): string
     {
-        $contents = Yaml::dump($this->data, 16);
-
-        file_put_contents($path ?? $this->path, $contents);
-    }
-
-    public static function parseFile(string $path): self
-    {
-        $data = Yaml::parseFile($path);
-
-        if (isset($data['networks'])) {
-            foreach ($data['networks'] as $name => $value) {
-                if (null === $value) {
-                    $data['networks'][$name] = [];
-                }
-            }
-        }
-        if (isset($data['volumes'])) {
-            foreach ($data['volumes'] as $name => $value) {
-                if (null === $value) {
-                    $data['volumes'][$name] = [];
-                }
-            }
-        }
-
-        return new static($path, $data);
+        return Yaml::dump($this->data, 16);
     }
 
     private function hasData($key): bool
