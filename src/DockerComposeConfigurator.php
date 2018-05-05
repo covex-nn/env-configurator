@@ -16,7 +16,7 @@ use Composer\Semver\Comparator;
 /**
  * docker-compose.yaml configurator.
  */
-class DockerCompose extends ConfiguratorAbstract
+class DockerComposeConfigurator extends ConfiguratorAbstract
 {
     public const VERSION = '3.2';
 

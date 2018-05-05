@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Covex\Environment\Configurator\Tests;
 
-use Covex\Environment\Configurator\DockerCompose;
+use Covex\Environment\Configurator\DockerComposeConfigurator;
 use Covex\Environment\Configurator\DockerComposeDefinition;
 use Covex\Stream\FileSystem;
 use PHPUnit\Framework\TestCase;
 
-class DockerComposeTest extends TestCase
+class DockerComposeConfiguratorTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -30,7 +30,7 @@ class DockerComposeTest extends TestCase
 
     public function testCreateNew(): void
     {
-        $configurator = new DockerCompose();
+        $configurator = new DockerComposeConfigurator();
         $configurator
             ->setSource('vfs://source.yaml')
             ->setTarget('vfs://new.yaml')
@@ -68,7 +68,7 @@ class DockerComposeTest extends TestCase
 
     public function testOverrideVersion(): void
     {
-        $configurator = new DockerCompose();
+        $configurator = new DockerComposeConfigurator();
         $configurator
             ->setSource('vfs://source.yaml')
             ->setTarget('vfs://destination-version.yaml')
@@ -80,7 +80,7 @@ class DockerComposeTest extends TestCase
 
     public function testOverrideVolumes(): void
     {
-        $configurator = new DockerCompose();
+        $configurator = new DockerComposeConfigurator();
         $configurator
             ->setSource('vfs://source.yaml')
             ->setTarget('vfs://destination-volumes.yaml')
@@ -97,7 +97,7 @@ class DockerComposeTest extends TestCase
 
     public function testOverrideNetworks(): void
     {
-        $configurator = new DockerCompose();
+        $configurator = new DockerComposeConfigurator();
         $configurator
             ->setSource('vfs://source.yaml')
             ->setTarget('vfs://destination-networks.yaml')
@@ -114,7 +114,7 @@ class DockerComposeTest extends TestCase
 
     public function testOverrideServiceNoNetworks(): void
     {
-        $configurator = new DockerCompose();
+        $configurator = new DockerComposeConfigurator();
         $configurator
             ->setSource('vfs://source.yaml')
             ->setTarget('vfs://destination-service.yaml')
