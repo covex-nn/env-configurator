@@ -1,11 +1,17 @@
-Service Configurator
+Environment Configurator
 ===
 
-Configure services with templates
+Configure environment with templates
 
-DockerCompose
+Docker Compose
 ---
 
 ```php
-use 
+use Covex\Environment\Configurator\DockerComposeConfigurator;
+
+$configurator = new DockerComposeConfigurator();
+$configurator
+    ->setSource('docker-compose.template.yaml')
+    ->setTarget('docker-compose.yaml')
+    ->apply();
 ```
