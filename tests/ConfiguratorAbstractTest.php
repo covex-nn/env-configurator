@@ -9,9 +9,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\ServiceConfigurator\Tests;
+namespace Covex\Environment\Configurator\Tests;
 
-use Covex\ServiceConfigurator\ConfiguratorAbstract;
+use Covex\Environment\Configurator\ConfiguratorAbstract;
 use PHPUnit\Framework\TestCase;
 
 class ConfiguratorAbstractTest extends TestCase

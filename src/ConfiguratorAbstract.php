@@ -9,7 +9,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\ServiceConfigurator;
+namespace Covex\Environment\Configurator;
 
 abstract class ConfiguratorAbstract implements ConfiguratorInterface
 {

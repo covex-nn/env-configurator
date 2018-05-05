@@ -9,10 +9,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\ServiceConfigurator\Tests;
+namespace Covex\Environment\Configurator\Tests;
 
-use Covex\ServiceConfigurator\DockerCompose;
-use Covex\ServiceConfigurator\DockerComposeDefinition;
+use Covex\Environment\Configurator\DockerCompose;
+use Covex\Environment\Configurator\DockerComposeDefinition;
 use Covex\Stream\FileSystem;
 use PHPUnit\Framework\TestCase;
 
