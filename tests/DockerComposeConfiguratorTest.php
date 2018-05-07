@@ -13,21 +13,9 @@ namespace Covex\Environment\Configurator\Tests;
 
 use Covex\Environment\Configurator\DockerComposeConfigurator;
 use Covex\Environment\Configurator\DockerComposeDefinition;
-use Covex\Stream\FileSystem;
-use PHPUnit\Framework\TestCase;
 
-class DockerComposeConfiguratorTest extends TestCase
+class DockerComposeConfiguratorTest extends ConfiguratorTestCase
 {
-    protected function setUp(): void
-    {
-        FileSystem::register('vfs', __DIR__.DIRECTORY_SEPARATOR.'docker-compose');
-    }
-
-    protected function tearDown(): void
-    {
-        FileSystem::unregister('vfs');
-    }
-
     public function testCreateNew(): void
     {
         $configurator = new DockerComposeConfigurator();
@@ -149,5 +137,10 @@ class DockerComposeConfiguratorTest extends TestCase
                 'not_used' => [],
             ],
         ], $data);
+    }
+
+    protected function getVfsRoot(): string
+    {
+        return __DIR__.DIRECTORY_SEPARATOR.'docker-compose';
     }
 }
