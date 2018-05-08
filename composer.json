@@ -3,8 +3,7 @@
     "type": "library",
     "descrition": "",
     "keywords": [
-        "docker",
-        "gitlab"
+        "flex"
     ],
     "license": "MIT",
     "authors": [
@@ -16,7 +15,7 @@
     "require": {
         "php": "^7.1",
         "composer/semver": "^1.0",
-        "symfony/yaml": "^2.8 || ^3.4 || ^4.0"
+        "symfony/yaml": "^3.4 || ^4.0"
     },
     "require-dev": {
         "covex-nn/vfs": "^1.0.2"
