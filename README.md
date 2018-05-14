@@ -63,3 +63,18 @@ $configurator
     ->setTarget('.env')
     ->apply();
 ```
+
+Yaml
+---
+
+Merges source yaml into target yaml file.
+
+```php
+use Covex\Environment\Configurator\YamlConfigurator;
+
+$configurator = new YamlConfigurator();
+$configurator
+    ->setSource('templating.yaml')
+    ->setTarget('config/packages/framework.yaml')
+    ->apply();
+```
