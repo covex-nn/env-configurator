@@ -23,7 +23,7 @@ abstract class ConfiguratorAbstract implements ConfiguratorInterface
      */
     private $target;
 
-    public function getSource(): ?string
+    public function getSource(): string
     {
         return $this->source;
     }
@@ -31,14 +31,14 @@ abstract class ConfiguratorAbstract implements ConfiguratorInterface
     /**
      * @return $this
      */
-    public function setSource($source): self
+    public function setSource(string $source): self
     {
         $this->source = $source;
 
         return $this;
     }
 
-    public function getTarget(): ?string
+    public function getTarget(): string
     {
         return $this->target;
     }

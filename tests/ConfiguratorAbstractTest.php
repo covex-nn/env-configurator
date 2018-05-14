@@ -16,20 +16,40 @@ use PHPUnit\Framework\TestCase;
 
 class ConfiguratorAbstractTest extends TestCase
 {
-    public function testSettersGetters(): void
+    /**
+     * @var ConfiguratorAbstract
+     */
+    private $configurator;
+
+    protected function setUp(): void
     {
-        $configurator = new class() extends ConfiguratorAbstract {
+        $this->configurator = new class() extends ConfiguratorAbstract {
             public function apply(): void
             {
             }
         };
+    }
 
-        $this->assertNull($configurator->getSource());
-        $this->assertEquals($configurator, $configurator->setSource('asdf'));
-        $this->assertEquals('asdf', $configurator->getSource());
+    public function testSettersGetters(): void
+    {
+        $this->assertEquals($this->configurator, $this->configurator->setSource('asdf'));
+        $this->assertEquals('asdf', $this->configurator->getSource());
 
-        $this->assertNull($configurator->getTarget());
-        $this->assertEquals($configurator, $configurator->setTarget('qwerty'));
-        $this->assertEquals('qwerty', $configurator->getTarget());
+        $this->assertEquals($this->configurator, $this->configurator->setTarget('qwerty'));
+        $this->assertEquals('qwerty', $this->configurator->getTarget());
+    }
+
+    public function testSourceTypeError(): void
+    {
+        $this->expectException(\TypeError::class);
+
+        $this->configurator->getSource();
+    }
+
+    public function testTargetTypeError(): void
+    {
+        $this->expectException(\TypeError::class);
+
+        $this->configurator->getTarget();
     }
 }
