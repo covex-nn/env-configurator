@@ -47,3 +47,19 @@ $configurator
     ->setTarget('phpunit.xml.dist')
     ->apply();
 ```
+
+Diff
+---
+
+Source is text file. If a line begins with `+`, a new line will be added, if with `-`, then
+a line will be removed. A line with `-` only, target file will be truncated.
+
+```php
+use Covex\Environment\Configurator\DiffConfigurator;
+
+$configurator = new DiffConfigurator();
+$configurator
+    ->setSource('changes.txt')
+    ->setTarget('.env')
+    ->apply();
+```
