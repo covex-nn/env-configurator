@@ -17,13 +17,15 @@ class DiffConfigurator extends ConfiguratorAbstract
     {
         $target = $this->getTarget();
         $data = [];
-        foreach (file($target) as $key => $value) {
-            $value = trim($value);
-            if (strlen($value)) {
-                $data[] = $value;
+        if (file_exists($target)) {
+            foreach (file($target) as $key => $value) {
+                $value = trim($value);
+                if (strlen($value)) {
+                    $data[] = $value;
+                }
             }
+            sort($data);
         }
-        sort($data);
 
         $diff = file($this->getSource());
         foreach ($diff as $line) {

@@ -64,6 +64,20 @@ class DiffConfiguratorTest extends ConfiguratorTestCase
         $this->assertEquals($content, file_get_contents('vfs://target.txt'));
     }
 
+    public function testNewFile(): void
+    {
+        $this->assertFileNotExists('vfs://.gitattributes');
+
+        $configurator = new DiffConfigurator();
+        $configurator
+            ->setSource('vfs://source.new.txt')
+            ->setTarget('vfs://.gitattributes')
+            ->apply();
+
+        $this->assertFileExists('vfs://.gitattributes');
+        $this->assertEquals('* text=auto'.PHP_EOL, file_get_contents('vfs://.gitattributes'));
+    }
+
     protected function getVfsRoot(): string
     {
         return __DIR__.DIRECTORY_SEPARATOR.'diff';
