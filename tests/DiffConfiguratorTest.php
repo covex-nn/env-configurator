@@ -14,7 +14,7 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\DiffConfigurator;
 
-class DiffConfiguratorTest extends ConfiguratorTestCase
+class DiffConfiguratorTest extends VfsTestCase
 {
     public function testError(): void
     {
@@ -22,19 +22,13 @@ class DiffConfiguratorTest extends ConfiguratorTestCase
         $this->expectExceptionMessage('Diff lines can start with - or + only');
 
         $configurator = new DiffConfigurator();
-        $configurator
-            ->setSource('vfs://source.error.txt')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://source.error.txt', 'vfs://target.txt');
     }
 
     public function testClear(): void
     {
         $configurator = new DiffConfigurator();
-        $configurator
-            ->setSource('vfs://source.clear.txt')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://source.clear.txt', 'vfs://target.txt');
 
         $this->assertEquals('', file_get_contents('vfs://target.txt'));
     }
@@ -42,10 +36,7 @@ class DiffConfiguratorTest extends ConfiguratorTestCase
     public function testRemove(): void
     {
         $configurator = new DiffConfigurator();
-        $configurator
-            ->setSource('vfs://source.remove.txt')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://source.remove.txt', 'vfs://target.txt');
 
         $this->assertEquals('password=asdf'.PHP_EOL, file_get_contents('vfs://target.txt'));
     }
@@ -53,10 +44,7 @@ class DiffConfiguratorTest extends ConfiguratorTestCase
     public function testAdd(): void
     {
         $configurator = new DiffConfigurator();
-        $configurator
-            ->setSource('vfs://source.add.txt')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://source.add.txt', 'vfs://target.txt');
 
         $content = implode(PHP_EOL, [
             '.env', 'asdfgh', 'login=qwerty', 'password=asdf', '',
@@ -69,10 +57,7 @@ class DiffConfiguratorTest extends ConfiguratorTestCase
         $this->assertFileNotExists('vfs://.gitattributes');
 
         $configurator = new DiffConfigurator();
-        $configurator
-            ->setSource('vfs://source.new.txt')
-            ->setTarget('vfs://.gitattributes')
-            ->apply();
+        $configurator->apply('vfs://source.new.txt', 'vfs://.gitattributes');
 
         $this->assertFileExists('vfs://.gitattributes');
         $this->assertEquals('* text=auto'.PHP_EOL, file_get_contents('vfs://.gitattributes'));

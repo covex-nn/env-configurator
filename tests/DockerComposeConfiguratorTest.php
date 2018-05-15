@@ -14,15 +14,12 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Environment\Configurator\DockerComposeConfigurator;
 use Covex\Environment\Configurator\DockerComposeDefinition;
 
-class DockerComposeConfiguratorTest extends ConfiguratorTestCase
+class DockerComposeConfiguratorTest extends VfsTestCase
 {
     public function testCreateNew(): void
     {
         $configurator = new DockerComposeConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://new.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://new.yaml');
 
         $data = (new DockerComposeDefinition('vfs://new.yaml'))
             ->getData();
@@ -57,10 +54,7 @@ class DockerComposeConfiguratorTest extends ConfiguratorTestCase
     public function testOverrideVersion(): void
     {
         $configurator = new DockerComposeConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://destination-version.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://destination-version.yaml');
 
         $definition = new DockerComposeDefinition('vfs://destination-version.yaml');
         $this->assertEquals('3.6', $definition->getVersion());
@@ -69,10 +63,7 @@ class DockerComposeConfiguratorTest extends ConfiguratorTestCase
     public function testOverrideVolumes(): void
     {
         $configurator = new DockerComposeConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://destination-volumes.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://destination-volumes.yaml');
 
         $data = (new DockerComposeDefinition('vfs://destination-volumes.yaml'))
             ->getData();
@@ -86,10 +77,7 @@ class DockerComposeConfiguratorTest extends ConfiguratorTestCase
     public function testOverrideNetworks(): void
     {
         $configurator = new DockerComposeConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://destination-networks.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://destination-networks.yaml');
 
         $data = (new DockerComposeDefinition('vfs://destination-networks.yaml'))
             ->getData();
@@ -103,10 +91,7 @@ class DockerComposeConfiguratorTest extends ConfiguratorTestCase
     public function testOverrideServiceNoNetworks(): void
     {
         $configurator = new DockerComposeConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://destination-service.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://destination-service.yaml');
 
         $data = (new DockerComposeDefinition('vfs://destination-service.yaml'))
             ->getData();

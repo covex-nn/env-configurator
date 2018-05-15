@@ -14,15 +14,12 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Environment\Configurator\YamlConfigurator;
 use Symfony\Component\Yaml\Yaml;
 
-class YamlConfiguratorTest extends ConfiguratorTestCase
+class YamlConfiguratorTest extends VfsTestCase
 {
     public function testApply(): void
     {
         $configurator = new YamlConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://target.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://target.yaml');
 
         $this->assertSame(
             ['root' => ['key1' => 'value1', 'key2' => 'value3', 'key3' => 'value4']],
@@ -35,10 +32,7 @@ class YamlConfiguratorTest extends ConfiguratorTestCase
         $this->assertFileNotExists('vfs://new.yaml');
 
         $configurator = new YamlConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://new.yaml')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://new.yaml');
 
         $this->assertFileExists('vfs://new.yaml');
         $this->assertSame(

@@ -16,12 +16,10 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Replace with str_replace.
  */
-class ReplaceConfigurator extends ConfiguratorAbstract
+class ReplaceConfigurator implements ConfiguratorInterface
 {
-    public function apply(): void
+    public function apply(string $source, string $target): void
     {
-        $source = $this->getSource();
-
         $search = [];
         $replace = [];
         $data = Yaml::parseFile($source);
@@ -38,7 +36,6 @@ class ReplaceConfigurator extends ConfiguratorAbstract
             $replace[] = $value;
         }
 
-        $target = $this->getTarget();
         if (!file_exists($target)) {
             throw new ConfiguratorException(sprintf('Target file %s not found', $target));
         }

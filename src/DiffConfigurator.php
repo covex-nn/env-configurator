@@ -11,11 +11,10 @@ declare(strict_types=1);
 
 namespace Covex\Environment\Configurator;
 
-class DiffConfigurator extends ConfiguratorAbstract
+class DiffConfigurator implements ConfiguratorInterface
 {
-    public function apply(): void
+    public function apply(string $source, string $target): void
     {
-        $target = $this->getTarget();
         $data = [];
         if (file_exists($target)) {
             foreach (file($target) as $key => $value) {
@@ -27,7 +26,7 @@ class DiffConfigurator extends ConfiguratorAbstract
             sort($data);
         }
 
-        $diff = file($this->getSource());
+        $diff = file($source);
         foreach ($diff as $line) {
             $line = trim($line);
             $action = substr($line, 0, 1);

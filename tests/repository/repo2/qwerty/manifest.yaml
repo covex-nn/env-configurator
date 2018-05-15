@@ -1,0 +1,4 @@
+sequence:
+    'prepare qwerty':
+        copy:
+            'source.txt': 'target1.txt'

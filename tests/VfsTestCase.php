@@ -14,7 +14,7 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Stream\FileSystem;
 use PHPUnit\Framework\TestCase;
 
-abstract class ConfiguratorTestCase extends TestCase
+abstract class VfsTestCase extends TestCase
 {
     protected function setUp(): void
     {

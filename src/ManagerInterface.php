@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Covex\Environment\Configurator;
 
-interface ConfiguratorInterface
+interface ManagerInterface
 {
     /**
-     * Apply configuration.
+     * Require a package and apply configuration to target dir.
      */
-    public function apply(string $source, string $target): void;
+    public function requirePackage(string $package, string $target): void;
 }

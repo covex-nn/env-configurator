@@ -14,7 +14,7 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ReplaceConfigurator;
 
-class ReplaceConfiguratorTest extends ConfiguratorTestCase
+class ReplaceConfiguratorTest extends VfsTestCase
 {
     public function testNotScalarData(): void
     {
@@ -22,10 +22,7 @@ class ReplaceConfiguratorTest extends ConfiguratorTestCase
         $this->expectExceptionMessage('Source must be an array in vfs://non-scalar-data.yaml');
 
         $configurator = new ReplaceConfigurator();
-        $configurator
-            ->setSource('vfs://non-scalar-data.yaml')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://non-scalar-data.yaml', 'vfs://target.txt');
     }
 
     public function testNotScalarValue(): void
@@ -34,10 +31,7 @@ class ReplaceConfiguratorTest extends ConfiguratorTestCase
         $this->expectExceptionMessage("Replace value for 'qwe' key must be scalar in vfs://non-scalar-value.yaml");
 
         $configurator = new ReplaceConfigurator();
-        $configurator
-            ->setSource('vfs://non-scalar-value.yaml')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://non-scalar-value.yaml', 'vfs://target.txt');
     }
 
     public function testTargetNotFound(): void
@@ -46,19 +40,13 @@ class ReplaceConfiguratorTest extends ConfiguratorTestCase
         $this->expectExceptionMessage('Target file vfs://not-found.txt not found');
 
         $configurator = new ReplaceConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://not-found.txt')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://not-found.txt');
     }
 
     public function testApply(): void
     {
         $configurator = new ReplaceConfigurator();
-        $configurator
-            ->setSource('vfs://source.yaml')
-            ->setTarget('vfs://target.txt')
-            ->apply();
+        $configurator->apply('vfs://source.yaml', 'vfs://target.txt');
 
         $this->assertEquals(
             '1_0', file_get_contents('vfs://target.txt')

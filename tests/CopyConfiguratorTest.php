@@ -14,7 +14,7 @@ namespace Covex\Environment\Configurator\Tests;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\CopyConfigurator;
 
-class CopyConfiguratorTest extends ConfiguratorTestCase
+class CopyConfiguratorTest extends VfsTestCase
 {
     public function testNotDirectory(): void
     {
@@ -24,10 +24,7 @@ class CopyConfiguratorTest extends ConfiguratorTestCase
         touch('vfs://dir');
 
         $configurator = new CopyConfigurator();
-        $configurator
-            ->setSource('vfs://source.txt')
-            ->setTarget('vfs://dir')
-            ->apply();
+        $configurator->apply('vfs://source.txt', 'vfs://dir/target.txt');
     }
 
     public function testApply(): void
@@ -35,14 +32,11 @@ class CopyConfiguratorTest extends ConfiguratorTestCase
         $this->assertFileNotExists('vfs://dir1/target/source.txt');
 
         $configurator = new CopyConfigurator();
-        $configurator
-            ->setSource('vfs://source.txt')
-            ->setTarget('vfs://dir1/target')
-            ->apply();
+        $configurator->apply('vfs://source.txt', 'vfs://dir1/target/source2.txt');
 
-        $this->assertFileExists('vfs://dir1/target/source.txt');
+        $this->assertFileExists('vfs://dir1/target/source2.txt');
         $this->assertEquals(
-            '123', file_get_contents('vfs://dir1/target/source.txt')
+            '123', file_get_contents('vfs://dir1/target/source2.txt')
         );
     }
 

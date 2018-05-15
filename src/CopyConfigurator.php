@@ -11,20 +11,18 @@ declare(strict_types=1);
 
 namespace Covex\Environment\Configurator;
 
-class CopyConfigurator extends ConfiguratorAbstract
+class CopyConfigurator implements ConfiguratorInterface
 {
-    public function apply(): void
+    public function apply(string $source, string $target): void
     {
-        $source = $this->getSource();
-        $target = $this->getTarget();
-
-        if (file_exists($target)) {
-            if (!is_dir($target)) {
-                throw new ConfiguratorException(sprintf('%s is not a directory', $target));
+        $dir = dirname($target);
+        if (file_exists($dir)) {
+            if (!is_dir($dir)) {
+                throw new ConfiguratorException(sprintf('%s is not a directory', $dir));
             }
         } else {
-            mkdir($target, 0777, true);
+            mkdir($dir, 0777, true);
         }
-        copy($source, $target.'/'.basename($source));
+        copy($source, $target);
     }
 }

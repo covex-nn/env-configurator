@@ -1,0 +1,7 @@
+require:
+    - 'qwerty'
+
+sequence:
+    'prepare asdf':
+        copy:
+            'source.txt': 'target2.txt'

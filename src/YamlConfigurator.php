@@ -13,13 +13,12 @@ namespace Covex\Environment\Configurator;
 
 use Symfony\Component\Yaml\Yaml;
 
-class YamlConfigurator extends ConfiguratorAbstract
+class YamlConfigurator implements ConfiguratorInterface
 {
-    public function apply(): void
+    public function apply(string $source, string $target): void
     {
-        $data = Yaml::parseFile($this->getSource());
+        $data = Yaml::parseFile($source);
 
-        $target = $this->getTarget();
         if (file_exists($target)) {
             $targetData = Yaml::parseFile($target);
             $data = $this->array_merge($targetData, $data);
