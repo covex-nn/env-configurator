@@ -13,6 +13,7 @@ namespace Covex\Environment\Tests\Configurator;
 
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ReplaceConfigurator;
+use Covex\Environment\Tests\VfsTestCase;
 
 class ReplaceConfiguratorTest extends VfsTestCase
 {

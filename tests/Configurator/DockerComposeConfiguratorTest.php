@@ -13,6 +13,7 @@ namespace Covex\Environment\Tests\Configurator;
 
 use Covex\Environment\Configurator\DockerComposeConfigurator;
 use Covex\Environment\Configurator\DockerComposeDefinition;
+use Covex\Environment\Tests\VfsTestCase;
 
 class DockerComposeConfiguratorTest extends VfsTestCase
 {

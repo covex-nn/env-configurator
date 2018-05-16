@@ -9,7 +9,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\Environment\Tests\Configurator;
+namespace Covex\Environment\Tests;
 
 use Covex\Stream\FileSystem;
 use PHPUnit\Framework\TestCase;

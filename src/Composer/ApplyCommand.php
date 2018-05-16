@@ -9,11 +9,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\Environment\Configurator;
+namespace Covex\Environment\Composer;
 
+use Composer\Command\BaseCommand;
+use Covex\Environment\Configurator\ConfiguratorException;
+use Covex\Environment\Configurator\ConfiguratorInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class SequenceManager implements ManagerInterface
+class ApplyCommand extends BaseCommand
 {
     protected const MANIFEST = 'manifest.yaml';
 
@@ -27,28 +33,12 @@ class SequenceManager implements ManagerInterface
      */
     private $repositories;
 
-    public function __construct()
+    public function __construct($name = null)
     {
+        parent::__construct($name);
+
         $this->configurators = [];
         $this->repositories = [];
-    }
-
-    public function requirePackage(string $package, string $target): void
-    {
-        $sequence = [];
-        $this->createSequence($package, $sequence);
-
-        foreach ($sequence as $name => $data) {
-            $source = $data['source'];
-            foreach ($data['sequence'] as $message => $configurators) {
-                foreach ($configurators as $name => $files) {
-                    $configurator = $this->getConfigurator($name);
-                    foreach ($files as $from => $to) {
-                        $configurator->apply($source.'/'.$from, $target.'/'.$to);
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -96,7 +86,37 @@ class SequenceManager implements ManagerInterface
         return $this;
     }
 
-    protected function createSequence(string $package, array &$sequence): void
+    protected function configure(): void
+    {
+        $this
+            ->setName('env:apply')
+            ->setDescription('Apply configuration package')
+            ->addArgument('package', InputArgument::REQUIRED, 'Package name')
+            ->addArgument('target', InputArgument::OPTIONAL, 'Target directory', getcwd());
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $package = $input->getArgument('package');
+        $target = $input->getArgument('target');
+
+        $sequence = [];
+        $this->createSequence($package, $sequence);
+
+        foreach ($sequence as $name => $data) {
+            $source = $data['source'];
+            foreach ($data['sequence'] as $message => $configurators) {
+                foreach ($configurators as $name => $files) {
+                    $configurator = $this->getConfigurator($name);
+                    foreach ($files as $from => $to) {
+                        $configurator->apply($source.'/'.$from, $target.'/'.$to);
+                    }
+                }
+            }
+        }
+    }
+
+    private function createSequence(string $package, array &$sequence): void
     {
         if (isset($sequence[$package])) {
             return;
@@ -130,7 +150,7 @@ class SequenceManager implements ManagerInterface
         }
     }
 
-    protected function getPackageSource(string $package): ?string
+    private function getPackageSource(string $package): ?string
     {
         $source = null;
         foreach ($this->repositories as $repository) {

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Covex\Environment\Tests\Configurator;
 
 use Covex\Environment\Configurator\YamlConfigurator;
+use Covex\Environment\Tests\VfsTestCase;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlConfiguratorTest extends VfsTestCase

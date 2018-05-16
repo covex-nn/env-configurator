@@ -9,18 +9,21 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\Environment\Tests\Configurator;
+namespace Covex\Environment\Tests\Composer;
 
+use Covex\Environment\Composer\ApplyCommand;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ConfiguratorInterface;
 use Covex\Environment\Configurator\CopyConfigurator;
-use Covex\Environment\Configurator\SequenceManager;
+use Covex\Environment\Tests\VfsTestCase;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 
-class SequenceManagerTest extends VfsTestCase
+class ApplyCommandTest extends VfsTestCase
 {
     public function testAddConfigurator(): void
     {
-        $manager = new SequenceManager();
+        $command = new ApplyCommand();
 
         $configurator = new class() implements ConfiguratorInterface {
             public function apply(string $source, string $target): void
@@ -28,10 +31,10 @@ class SequenceManagerTest extends VfsTestCase
             }
         };
 
-        $this->assertFalse($manager->hasConfigurator('qwerty'));
-        $manager->addConfigurator('qwerty', $configurator);
-        $this->assertTrue($manager->hasConfigurator('qwerty'));
-        $this->assertEquals($configurator, $manager->getConfigurator('qwerty'));
+        $this->assertFalse($command->hasConfigurator('qwerty'));
+        $command->addConfigurator('qwerty', $configurator);
+        $this->assertTrue($command->hasConfigurator('qwerty'));
+        $this->assertEquals($configurator, $command->getConfigurator('qwerty'));
     }
 
     /**
@@ -41,8 +44,8 @@ class SequenceManagerTest extends VfsTestCase
     {
         $this->expectException(ConfiguratorException::class);
 
-        $manager = new SequenceManager();
-        $manager->addRepository($repository);
+        $command = new ApplyCommand();
+        $command->addRepository($repository);
     }
 
     public function providerBadRepository(): array
@@ -55,25 +58,30 @@ class SequenceManagerTest extends VfsTestCase
 
     public function testAddRepository(): void
     {
-        $manager = new SequenceManager();
-        $this->assertSame([], $manager->getRepositories());
+        $command = new ApplyCommand();
+        $this->assertSame([], $command->getRepositories());
 
-        $manager->addRepository('vfs://repo1');
-        $this->assertSame(['vfs://repo1'], $manager->getRepositories());
-        $manager->addRepository('vfs://repo2');
-        $this->assertSame(['vfs://repo1', 'vfs://repo2'], $manager->getRepositories());
+        $command->addRepository('vfs://repo1');
+        $this->assertSame(['vfs://repo1'], $command->getRepositories());
+        $command->addRepository('vfs://repo2');
+        $this->assertSame(['vfs://repo1', 'vfs://repo2'], $command->getRepositories());
     }
 
     public function testRequire(): void
     {
-        $manager = new SequenceManager();
-        $manager
+        $input = new ArrayInput([
+            'package' => 'asdf',
+            'target' => 'vfs://target',
+        ]);
+
+        $command = new ApplyCommand();
+        $command
             ->addRepository('vfs://repo1')
             ->addRepository('vfs://repo2')
             ->addRepository('vfs://repo3')
             ->addConfigurator('copy', new CopyConfigurator());
 
-        $manager->requirePackage('asdf', 'vfs://target');
+        $command->run($input, new NullOutput());
 
         $this->assertFileExists('vfs://target/target1.txt');
         $this->assertEquals('source-from-repo2', file_get_contents('vfs://target/target1.txt'));

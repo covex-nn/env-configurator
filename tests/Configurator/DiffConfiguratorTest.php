@@ -13,6 +13,7 @@ namespace Covex\Environment\Tests\Configurator;
 
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\DiffConfigurator;
+use Covex\Environment\Tests\VfsTestCase;
 
 class DiffConfiguratorTest extends VfsTestCase
 {
