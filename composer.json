@@ -1,6 +1,6 @@
 {
     "name": "covex-nn/environment",
-    "type": "library",
+    "type": "composer-plugin",
     "descrition": "",
     "keywords": [
         "flex"
@@ -14,11 +14,13 @@
     ],
     "require": {
         "php": "^7.1",
+        "covex-nn/vfs": "^1.0.2",
+        "composer-plugin-api": "^1.1",
         "composer/semver": "^1.0",
         "symfony/yaml": "^3.4 || ^4.0"
     },
     "require-dev": {
-        "covex-nn/vfs": "^1.0.2"
+        "composer/composer": "^1.5"
     },
     "config": {
         "preferred-install": {
@@ -29,7 +31,8 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.x-dev"
-        }
+        },
+        "class": "Covex\\Environment\\Composer\\EnvironmentPlugin"
     },
     "autoload": {
         "psr-4": {
