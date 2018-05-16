@@ -1,55 +1,40 @@
-Environment Configurator
-===
+# Environment Configurator
 
 Configure environment with templates
 
-Docker Compose
----
+## Install
 
-Merge source docker-compose file into target docker-compose file.
+Environment configurator is a composer plugin. It is recomended to install it globaly:
 
-```php
-use Covex\Environment\Configurator\DockerComposeConfigurator;
-
-$configurator = new DockerComposeConfigurator();
-$configurator
-    ->setSource('docker-compose.template.yaml')
-    ->setTarget('docker-compose.yaml')
-    ->apply();
+```bash
+composer global require covex-nn/environment
 ```
 
-Copy
----
+## Usage
 
-Copy source file to target dir.
+```
+Usage:
+  composer env:apply <package> [<target>]
+
+Arguments:
+  package   Package name
+  target    Target directory [default: "getcwd()"]
+```
+
+## Configurators
+
+### copy
+
+Copy source file.
 
 ```php
 use Covex\Environment\Configurator\CopyConfigurator;
 
 $configurator = new CopyConfigurator();
-$configurator
-    ->setSource('file.txt')
-    ->setTarget('target/dir')
-    ->apply();
+$configurator->apply('file.txt', 'dir/target.txt');
 ```
 
-Replace
----
-
-Source is a key-value YAML file. ReplaceConfigurator replace key with value in target file.
-
-```php
-use Covex\Environment\Configurator\ReplaceConfigurator;
-
-$configurator = new ReplaceConfigurator();
-$configurator
-    ->setSource('changes.yaml')
-    ->setTarget('phpunit.xml.dist')
-    ->apply();
-```
-
-Diff
----
+### diff
 
 Source is text file. If a line begins with `+`, a new line will be added, if with `-`, then
 a line will be removed. A line with `-` only, target file will be truncated.
@@ -58,14 +43,32 @@ a line will be removed. A line with `-` only, target file will be truncated.
 use Covex\Environment\Configurator\DiffConfigurator;
 
 $configurator = new DiffConfigurator();
-$configurator
-    ->setSource('changes.txt')
-    ->setTarget('.env')
-    ->apply();
+$configurator->apply('changes.txt', '.env');
 ```
 
-Yaml
----
+### docker-compose
+
+Merge source docker-compose file into target docker-compose file.
+
+```php
+use Covex\Environment\Configurator\DockerComposeConfigurator;
+
+$configurator = new DockerComposeConfigurator();
+$configurator->apply('docker-compose.template.yaml', 'docker-compose.yaml');
+```
+
+### replace
+
+Source is a key-value YAML file. ReplaceConfigurator replace key with value in target file.
+
+```php
+use Covex\Environment\Configurator\ReplaceConfigurator;
+
+$configurator = new ReplaceConfigurator();
+$configurator->apply('changes.yaml', 'phpunit.xml.dist');
+```
+
+### yaml
 
 Merges source yaml into target yaml file.
 
@@ -73,8 +76,5 @@ Merges source yaml into target yaml file.
 use Covex\Environment\Configurator\YamlConfigurator;
 
 $configurator = new YamlConfigurator();
-$configurator
-    ->setSource('templating.yaml')
-    ->setTarget('config/packages/framework.yaml')
-    ->apply();
+$configurator->apply('templating.yaml', 'config/packages/framework.yaml');
 ```
