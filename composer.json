@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Covex\\Environment\\Configurator\\": "src/"
+            "Covex\\Environment\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Covex\\Environment\\Configurator\\Tests\\": "tests/"
+            "Covex\\Environment\\Tests\\": "tests/"
         }
     }
 }

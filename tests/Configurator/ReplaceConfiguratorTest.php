@@ -9,7 +9,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Covex\Environment\Configurator\Tests;
+namespace Covex\Environment\Tests\Configurator;
 
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ReplaceConfigurator;
