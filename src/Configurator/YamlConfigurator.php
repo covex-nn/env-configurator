@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Covex\Environment\Configurator;
 
+use Covex\Environment\Util\DirectoryUtil;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlConfigurator implements ConfiguratorInterface
@@ -24,6 +25,7 @@ class YamlConfigurator implements ConfiguratorInterface
             $data = $this->array_merge($targetData, $data);
         }
 
+        DirectoryUtil::createParent($target);
         file_put_contents($target, Yaml::dump($data, 16));
     }
 
