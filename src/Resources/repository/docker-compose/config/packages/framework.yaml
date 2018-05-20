@@ -1,0 +1,2 @@
+framework:
+    secret: '%env(ENV_secret)%'

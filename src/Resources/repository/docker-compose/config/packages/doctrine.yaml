@@ -1,0 +1,3 @@
+doctrine:
+    dbal:
+        url: 'mysql://%env(ENV_database_user)%:%env(ENV_database_password)%@%env(ENV_database_host)%:%env(ENV_database_port)%/%env(ENV_database_name)%'

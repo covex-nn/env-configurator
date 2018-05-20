@@ -1,0 +1,33 @@
+require:
+    - phpunit-bootstrap
+    - local-dev
+
+sequence:
+    "Update .env":
+        diff:
+            ".env.txt": ".env"
+    "Update .*ignore files":
+        diff:
+            ".dockerignore.txt": ".dockerignore"
+            ".gitignore.txt": ".gitignore"
+    "Copy docker-compose files":
+        copy:
+            ".gitlab-ci.yml": ".gitlab-ci.yml"
+            "build.xml": "build.xml"
+            "docker-compose.deploy.yml": "docker-compose.deploy.yml"
+            "docker-compose.override.yml.dist": "docker-compose.override.yml.dist"
+            "docker-compose.yml": "docker-compose.yml"
+            "docker/compose/Dockerfile": "docker/compose/Dockerfile"
+            "docker/git/Dockerfile": "docker/git/Dockerfile"
+            "docker/git/ssh_config": "docker/git/ssh_config"
+            "docker/nginx/backend_dev.conf.default": "docker/nginx/backend_dev.conf.default"
+            "docker/nginx/backend_prod.conf.default": "docker/nginx/backend_prod.conf.default"
+            "docker/nginx/default.conf": "docker/nginx/default.conf"
+            "docker/nginx/Dockerfile": "docker/nginx/Dockerfile"
+            "docker/php/app.crontab": "docker/php/app.crontab"
+            "docker/php/xdebug.ini": "docker/php/xdebug.ini"
+    "Update symfony configuration":
+        yaml:
+            "config/packages/prod/framework.yaml": "config/packages/prod/framework.yaml"
+            "config/packages/doctrine.yaml": "config/packages/doctrine.yaml"
+            "config/packages/framework.yaml": "config/packages/framework.yaml"
