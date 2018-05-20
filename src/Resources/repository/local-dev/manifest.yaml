@@ -1,0 +1,7 @@
+sequence:
+    "Prepare dev environment":
+        diff:
+            ".gitattributes.txt": ".gitattributes"
+            ".gitignore.txt": ".gitignore"
+        copy:
+            ".editorconfig": ".editorconfig"
