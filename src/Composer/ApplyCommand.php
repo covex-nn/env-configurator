@@ -14,6 +14,7 @@ namespace Covex\Environment\Composer;
 use Composer\Command\BaseCommand;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ConfiguratorInterface;
+use Covex\Stream\FileSystem;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -103,17 +104,32 @@ class ApplyCommand extends BaseCommand
         $sequence = [];
         $this->createSequence($package, $sequence);
 
-        foreach ($sequence as $name => $data) {
-            $source = $data['source'];
-            foreach ($data['sequence'] as $message => $configurators) {
+        $output->writeln(sprintf('Applying "%s" configuration:', $package));
+
+        FileSystem::register('target', $target);
+        foreach ($sequence as $item) {
+            foreach ($item['sequence'] as $message => $configurators) {
+                $output->writeln(sprintf('  - %s', $message));
+
                 foreach ($configurators as $name => $files) {
                     $configurator = $this->getConfigurator($name);
-                    foreach ($files as $from => $to) {
-                        $configurator->apply($source.'/'.$from, $target.'/'.$to);
+                    foreach ($files as $source => $target) {
+                        try {
+                            $configurator->apply($item['source'].'/'.$source, 'target://'.$target);
+                        } catch (ConfiguratorException $e) {
+                            throw new ConfiguratorException(
+                                str_replace('target://', '', $e->getMessage()), $e->getCode()
+                            );
+                        }
+                        if ($output->isVerbose()) {
+                            $output->writeln(sprintf('    [%s] %s', $name, $target));
+                        }
                     }
                 }
             }
         }
+        FileSystem::commit('target');
+        FileSystem::unregister('target');
     }
 
     private function createSequence(string $package, array &$sequence): void
