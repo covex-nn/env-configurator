@@ -117,6 +117,8 @@ class ApplyCommand extends BaseCommand
                         try {
                             $configurator->apply($item['source'].'/'.$source, 'target://'.$target);
                         } catch (ConfiguratorException $e) {
+                            FileSystem::unregister('target');
+
                             throw new ConfiguratorException(
                                 str_replace('target://', '', $e->getMessage()), $e->getCode()
                             );
