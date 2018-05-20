@@ -1,0 +1,6 @@
+sequence:
+    "Replace PHPUnit bootstrap":
+        copy:
+            "tests/bootstrap.php": "tests/bootstrap.php"
+        replace:
+            "phpunit.xml.yaml": "phpunit.xml.dist"
