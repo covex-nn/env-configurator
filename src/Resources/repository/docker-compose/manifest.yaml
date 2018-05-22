@@ -1,8 +1,11 @@
 require:
-    - phpunit-bootstrap
+    - phpunit
     - local-dev
 
 sequence:
+    "Install Doctrine ORM":
+        composer:
+            "composer.json": "composer.json"
     "Update .env":
         diff:
             ".env.txt": ".env"
@@ -26,6 +29,10 @@ sequence:
             "docker/nginx/Dockerfile": "docker/nginx/Dockerfile"
             "docker/php/app.crontab": "docker/php/app.crontab"
             "docker/php/xdebug.ini": "docker/php/xdebug.ini"
+            "Dockerfile": "Dockerfile"
+            "var/cache/.gitignore": "var/cache/.gitignore"
+            "var/log/.gitignore": "var/log/.gitignore"
+            "var/sessions/.gitignore": "var/sessions/.gitignore"
     "Update symfony configuration":
         yaml:
             "config/packages/prod/framework.yaml": "config/packages/prod/framework.yaml"

@@ -23,6 +23,17 @@ Arguments:
 
 ## Configurators
 
+### composer
+
+Update composer.json
+
+```php
+use Covex\Environment\Configurator\ComposerConfigurator;
+
+$configurator = new ComposerConfigurator();
+$configurator->apply('composer-phpunit.json', 'composer.json');
+```
+
 ### copy
 
 Copy source file.

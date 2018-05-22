@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Covex\Environment\Composer;
 
 use Composer\Command\BaseCommand;
+use Covex\Environment\Configurator\CommandAwareInterface;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ConfiguratorInterface;
 use Covex\Stream\FileSystem;
@@ -48,6 +49,10 @@ class ApplyCommand extends BaseCommand
     public function addConfigurator(string $name, ConfiguratorInterface $configurator): self
     {
         $this->configurators[$name] = $configurator;
+
+        if ($configurator instanceof CommandAwareInterface) {
+            $configurator->setCommand($this);
+        }
 
         return $this;
     }
@@ -104,13 +109,10 @@ class ApplyCommand extends BaseCommand
         $sequence = [];
         $this->createSequence($package, $sequence);
 
-        $output->writeln(sprintf('Applying "%s" configuration:', $package));
-
         FileSystem::register('target', $target);
         foreach ($sequence as $item) {
             foreach ($item['sequence'] as $message => $configurators) {
-                $output->writeln(sprintf('  - %s', $message));
-
+                $output->writeln(sprintf('Applying "%s" configuration sequence:', $message));
                 foreach ($configurators as $name => $files) {
                     $configurator = $this->getConfigurator($name);
                     foreach ($files as $source => $target) {
@@ -128,6 +130,7 @@ class ApplyCommand extends BaseCommand
                         }
                     }
                 }
+                $output->writeln("");
             }
         }
         FileSystem::commit('target');

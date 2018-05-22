@@ -1,1 +1,4 @@
+- ###> symfony/framework-bundle ###
+- ###< symfony/framework-bundle ###
 + /auth.json
++ /build/
