@@ -1,0 +1,6 @@
+{
+    "require-dev": {
+        "symfony/templating": "^3.4 | ^4.0",
+        "symfony/twig-bundle": "^3.4 | ^4.0"
+    }
+}

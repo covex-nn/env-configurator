@@ -29,6 +29,9 @@ class DiffConfigurator implements ConfiguratorInterface
         $diff = file($source);
         foreach ($diff as $line) {
             $line = trim($line);
+            if (!strlen($line)) {
+                continue;
+            }
             $action = substr($line, 0, 1);
             $line = trim(substr($line, 1));
 

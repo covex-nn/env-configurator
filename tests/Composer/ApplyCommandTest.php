@@ -70,7 +70,7 @@ class ApplyCommandTest extends VfsTestCase
     public function testRequire(): void
     {
         $input = new ArrayInput([
-            'package' => 'asdf',
+            'sequence' => 'asdf',
             'target' => 'vfs://target',
         ]);
 

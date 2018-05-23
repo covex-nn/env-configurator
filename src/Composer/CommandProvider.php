@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Covex\Environment\Composer;
 
 use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
+use Covex\Environment\Configurator\ComposerConfigurator;
 use Covex\Environment\Configurator\CopyConfigurator;
 use Covex\Environment\Configurator\DiffConfigurator;
 use Covex\Environment\Configurator\DockerComposeConfigurator;
@@ -20,16 +21,6 @@ use Covex\Environment\Configurator\YamlConfigurator;
 
 class CommandProvider implements CommandProviderCapability
 {
-    /**
-     * @var EnvironmentPlugin
-     */
-    private $plugin;
-
-    public function __construct(array $data)
-    {
-        $this->plugin = $data['plugin'];
-    }
-
     public function getCommands(): array
     {
         $apply = new ApplyCommand();
@@ -40,6 +31,7 @@ class CommandProvider implements CommandProviderCapability
             ->addConfigurator('docker-compose', new DockerComposeConfigurator())
             ->addConfigurator('replace', new ReplaceConfigurator())
             ->addConfigurator('yaml', new YamlConfigurator())
+            ->addConfigurator('composer', new ComposerConfigurator())
         ;
 
         return [$apply];

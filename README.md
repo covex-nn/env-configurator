@@ -1,6 +1,6 @@
 # Environment Configurator
 
-Configure environment with templates
+Configure environment with templates to bootstrap new Symfony Flex application
 
 ## Install
 
@@ -14,67 +14,34 @@ composer global require covex-nn/environment
 
 ```
 Usage:
-  composer env:apply <package> [<target>]
+  composer env:apply <sequence> [<target>]
 
 Arguments:
-  package   Package name
+  sequence  Sequence name
   target    Target directory [default: "getcwd()"]
 ```
 
+## Sequences
+
+Install `symfony/templating` with `symfony/twig-bundle` and enable `templating` in `config/packages/framework.yaml`
+
+    composer env:apply templating
+
+Install `symfony/phpunit-bridge` and replace bootstrap file in `phpunit.xml.dist` to new `tests/bootstrap.php` file.
+
+    composer env:apply phpunit
+
+Install `docker-composer` environment, similar to [covex-nn/docker-symfony](https://github.com/covex-nn/docker-workflow-symfony)
+
+    composer env:apply docker-compose
+
 ## Configurators
 
-### copy
-
-Copy source file.
-
-```php
-use Covex\Environment\Configurator\CopyConfigurator;
-
-$configurator = new CopyConfigurator();
-$configurator->apply('file.txt', 'dir/target.txt');
-```
-
-### diff
-
-Source is text file. If a line begins with `+`, a new line will be added, if with `-`, then
-a line will be removed. A line with `-` only, target file will be truncated.
-
-```php
-use Covex\Environment\Configurator\DiffConfigurator;
-
-$configurator = new DiffConfigurator();
-$configurator->apply('changes.txt', '.env');
-```
-
-### docker-compose
-
-Merge source docker-compose file into target docker-compose file.
-
-```php
-use Covex\Environment\Configurator\DockerComposeConfigurator;
-
-$configurator = new DockerComposeConfigurator();
-$configurator->apply('docker-compose.template.yaml', 'docker-compose.yaml');
-```
-
-### replace
-
-Source is a key-value YAML file. ReplaceConfigurator replace key with value in target file.
-
-```php
-use Covex\Environment\Configurator\ReplaceConfigurator;
-
-$configurator = new ReplaceConfigurator();
-$configurator->apply('changes.yaml', 'phpunit.xml.dist');
-```
-
-### yaml
-
-Merges source yaml into target yaml file.
-
-```php
-use Covex\Environment\Configurator\YamlConfigurator;
-
-$configurator = new YamlConfigurator();
-$configurator->apply('templating.yaml', 'config/packages/framework.yaml');
-```
+| Name | Description |
+|------:|------------|
+| composer | Merge source json file with `composer.json` |
+| copy   | Copy source file to target file |
+| diff | Source is text file. If a line begins with `+`, a new line will be added, if with `-`, then a line will be removed. A line with `-` only, target file will be truncated |
+| docker-compose | Merge source docker-compose target file into target file | 
+| replace | Source is a key-value YAML file. `replace` configurator replace key with value in target file. |
+| yaml | Merges source yaml into target yaml file. |
