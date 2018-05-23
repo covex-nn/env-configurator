@@ -14,7 +14,6 @@ namespace Covex\Environment\Configurator;
 use Composer\Command\BaseCommand;
 use Composer\Factory;
 use Composer\Installer;
-use Composer\Json\JsonFile;
 use Composer\Json\JsonManipulator;
 
 class ComposerConfigurator implements ConfiguratorInterface, CommandAwareInterface
@@ -25,7 +24,7 @@ class ComposerConfigurator implements ConfiguratorInterface, CommandAwareInterfa
     private $command;
 
     private $sections = [
-        "require", "require-dev", "replaces", "conflicts"
+        'require', 'require-dev', 'replaces', 'conflicts',
     ];
 
     /**

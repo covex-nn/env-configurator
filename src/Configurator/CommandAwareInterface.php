@@ -16,7 +16,7 @@ use Composer\Command\BaseCommand;
 interface CommandAwareInterface
 {
     /**
-     * Set composer command
+     * Set composer command.
      */
     public function setCommand(BaseCommand $command);
 }

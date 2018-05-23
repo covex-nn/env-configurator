@@ -97,13 +97,13 @@ class ApplyCommand extends BaseCommand
         $this
             ->setName('env:apply')
             ->setDescription('Apply configuration package')
-            ->addArgument('package', InputArgument::REQUIRED, 'Package name')
+            ->addArgument('sequence', InputArgument::REQUIRED, 'Sequence name')
             ->addArgument('target', InputArgument::OPTIONAL, 'Target directory', getcwd());
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $package = $input->getArgument('package');
+        $package = $input->getArgument('sequence');
         $target = $input->getArgument('target');
 
         $sequence = [];
@@ -130,7 +130,7 @@ class ApplyCommand extends BaseCommand
                         }
                     }
                 }
-                $output->writeln("");
+                $output->writeln('');
             }
         }
         FileSystem::commit('target');
