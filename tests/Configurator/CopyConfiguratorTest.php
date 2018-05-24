@@ -30,12 +30,15 @@ class CopyConfiguratorTest extends VfsTestCase
 
     public function testFileExists(): void
     {
-        $this->expectException(ConfiguratorException::class);
-        $this->expectExceptionMessage('File vfs://file.txt already exists');
-
         touch('vfs://file.txt');
+
         $configurator = new CopyConfigurator();
         $configurator->apply('vfs://source.txt', 'vfs://file.txt');
+
+        $this->assertEquals(
+            file_get_contents('vfs://source.txt'),
+            file_get_contents('vfs://file.txt')
+        );
     }
 
     public function testApply(): void

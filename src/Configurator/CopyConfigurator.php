@@ -17,10 +17,6 @@ class CopyConfigurator implements ConfiguratorInterface
 {
     public function apply(string $source, string $target): void
     {
-        if (file_exists($target)) {
-            throw new ConfiguratorException(sprintf('File %s already exists', $target));
-        }
-
         DirectoryUtil::createParent($target);
         copy($source, $target);
     }
