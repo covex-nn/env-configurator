@@ -1,0 +1,22 @@
+require:
+    - phpunit
+
+sequence:
+    "Install Doctrine ORM":
+        composer:
+            "composer.json": "composer.json"
+    "Prepare dev environment":
+        diff:
+            ".gitattributes.txt": ".gitattributes"
+            ".gitignore.txt": ".gitignore"
+            ".env.txt": ".env"
+        copy:
+            ".editorconfig": ".editorconfig"
+            "build.xml": "build.xml"
+            "var/cache/.gitignore": "var/cache/.gitignore"
+            "var/log/.gitignore": "var/log/.gitignore"
+            "var/sessions/.gitignore": "var/sessions/.gitignore"
+    "Update symfony configuration":
+        yaml:
+            "config/packages/doctrine.yaml": "config/packages/doctrine.yaml"
+            "config/packages/framework.yaml": "config/packages/framework.yaml"

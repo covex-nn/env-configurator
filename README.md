@@ -31,6 +31,10 @@ Install `symfony/phpunit-bridge` and replace bootstrap file in `phpunit.xml.dist
 
     composer env:apply phpunit
 
+Install local dev environment
+
+    composer env:apply local-env
+
 Install `docker-composer` environment, similar to [covex-nn/docker-symfony](https://github.com/covex-nn/docker-workflow-symfony)
 
     composer env:apply docker-compose

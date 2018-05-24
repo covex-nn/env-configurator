@@ -1,5 +1,1 @@
-- /.env
-- /var/
 + /docker-compose.override.yml
-+ /public/upload
-+ /storage

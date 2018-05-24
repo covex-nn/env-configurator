@@ -1,4 +1,8 @@
 - ###> symfony/framework-bundle ###
 - ###< symfony/framework-bundle ###
+- /.env
 + /auth.json
 + /build/
++ /public/upload
++ /storage
+- /var/
