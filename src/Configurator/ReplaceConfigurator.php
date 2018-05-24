@@ -20,6 +20,10 @@ class ReplaceConfigurator implements ConfiguratorInterface
 {
     public function apply(string $source, string $target): void
     {
+        if (!file_exists($target)) {
+            return;
+        }
+
         $search = [];
         $replace = [];
         $data = Yaml::parseFile($source);
@@ -34,10 +38,6 @@ class ReplaceConfigurator implements ConfiguratorInterface
             }
             $search[] = $key;
             $replace[] = $value;
-        }
-
-        if (!file_exists($target)) {
-            throw new ConfiguratorException(sprintf('Target file %s not found', $target));
         }
 
         file_put_contents($target, str_replace($search, $replace, file_get_contents($target)));

@@ -37,11 +37,12 @@ class ReplaceConfiguratorTest extends VfsTestCase
 
     public function testTargetNotFound(): void
     {
-        $this->expectException(ConfiguratorException::class);
-        $this->expectExceptionMessage('Target file vfs://not-found.txt not found');
+        $this->assertFileNotExists('vfs://file-does-not-exists.txt');
 
         $configurator = new ReplaceConfigurator();
-        $configurator->apply('vfs://source.yaml', 'vfs://not-found.txt');
+        $configurator->apply('vfs://source.yaml', 'vfs://file-does-not-exists.txt');
+
+        $this->assertFileNotExists('vfs://file-does-not-exists.txt');
     }
 
     public function testApply(): void
