@@ -132,8 +132,8 @@ class ApplyCommand extends BaseCommand
                 }
                 $output->writeln('');
             }
+            FileSystem::commit('target');
         }
-        FileSystem::commit('target');
         FileSystem::unregister('target');
     }
 

@@ -1,2 +1,0 @@
-- ###> symfony/phpunit-bridge ###
-- ###< symfony/phpunit-bridge ###

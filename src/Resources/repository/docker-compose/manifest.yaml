@@ -1,20 +1,11 @@
-require:
-    - local-env
-
 sequence:
-    "Prepare dev environment":
+    "Prepare environment":
         diff:
-            ".dockerignore.txt": ".dockerignore"
             ".gitignore.txt": ".gitignore"
-    "Copy docker-compose files":
+    "Copy files":
         copy:
-            ".gitlab-ci.yml": ".gitlab-ci.yml"
-            "docker-compose.deploy.yml": "docker-compose.deploy.yml"
             "docker-compose.override.yml.dist": "docker-compose.override.yml.dist"
             "docker-compose.yml": "docker-compose.yml"
-            "docker/compose/Dockerfile": "docker/compose/Dockerfile"
-            "docker/git/Dockerfile": "docker/git/Dockerfile"
-            "docker/git/ssh_config": "docker/git/ssh_config"
             "docker/nginx/backend_dev.conf.default": "docker/nginx/backend_dev.conf.default"
             "docker/nginx/backend_prod.conf.default": "docker/nginx/backend_prod.conf.default"
             "docker/nginx/default.conf": "docker/nginx/default.conf"
@@ -22,6 +13,3 @@ sequence:
             "docker/php/app.crontab": "docker/php/app.crontab"
             "docker/php/xdebug.ini": "docker/php/xdebug.ini"
             "Dockerfile": "Dockerfile"
-    "Update symfony configuration":
-        yaml:
-            "config/packages/prod/framework.yaml": "config/packages/prod/framework.yaml"

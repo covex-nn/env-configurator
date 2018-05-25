@@ -1,6 +1,6 @@
 # Environment Configurator
 
-Configure environment with templates to bootstrap new Symfony Flex application
+Bootstrap new PHP applications with templates
 
 ## Install
 
@@ -23,21 +23,17 @@ Arguments:
 
 ## Sequences
 
-Install `symfony/templating` with `symfony/twig-bundle` and enable `templating` in `config/packages/framework.yaml`
+Install `symfony/templating` with `symfony/twig-bundle` and enable `templating` in `config/packages/framework.yaml`:
 
     composer env:apply templating
 
-Install `symfony/phpunit-bridge` and replace bootstrap file in `phpunit.xml.dist` to new `tests/bootstrap.php` file.
-
-    composer env:apply phpunit
-
-Install local dev environment
-
-    composer env:apply local-env
-
-Install `docker-composer` environment, similar to [covex-nn/docker-symfony](https://github.com/covex-nn/docker-workflow-symfony)
+Create `docker-compose` local environment:
 
     composer env:apply docker-compose
+
+Install `docker-composer` environment, equal to [covex-nn/docker-symfony](https://github.com/covex-nn/docker-workflow-symfony)
+
+    composer env:apply docker-ci
 
 ## Configurators
 
