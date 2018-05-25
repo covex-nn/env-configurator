@@ -1,0 +1,34 @@
+require:
+    - docker-compose
+
+sequence:
+    "Update composer dependencies":
+        composer:
+            "composer.json": "composer.json"
+    "Prepare environment":
+        diff:
+            ".dockerignore.txt": ".dockerignore"
+            ".env.txt": ".env"
+            ".gitattributes.txt": ".gitattributes"
+            ".gitignore.txt": ".gitignore"
+        copy:
+            ".editorconfig": ".editorconfig"
+            "build.xml": "build.xml"
+            ".gitlab-ci.yml": ".gitlab-ci.yml"
+            "docker-compose.deploy.yml": "docker-compose.deploy.yml"
+            "docker/compose/Dockerfile": "docker/compose/Dockerfile"
+            "docker/git/Dockerfile": "docker/git/Dockerfile"
+            "docker/git/ssh_config": "docker/git/ssh_config"
+            "var/cache/.gitignore": "var/cache/.gitignore"
+            "var/log/.gitignore": "var/log/.gitignore"
+            "var/sessions/.gitignore": "var/sessions/.gitignore"
+    "Replace phpunit bootstrap":
+        copy:
+            "tests/bootstrap.php": "tests/bootstrap.php"
+        replace:
+            "phpunit.xml.yaml": "phpunit.xml.dist"
+    "Update symfony configuration":
+        yaml:
+            "config/packages/doctrine.yaml": "config/packages/doctrine.yaml"
+            "config/packages/framework.yaml": "config/packages/framework.yaml"
+            "config/packages/prod/framework.yaml": "config/packages/prod/framework.yaml"
