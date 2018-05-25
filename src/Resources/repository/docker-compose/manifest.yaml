@@ -7,7 +7,6 @@ sequence:
             "docker-compose.override.yml.dist": "docker-compose.override.yml.dist"
             "docker-compose.yml": "docker-compose.yml"
             "docker/nginx/backend_dev.conf.default": "docker/nginx/backend_dev.conf.default"
-            "docker/nginx/backend_prod.conf.default": "docker/nginx/backend_prod.conf.default"
             "docker/nginx/default.conf": "docker/nginx/default.conf"
             "docker/nginx/Dockerfile": "docker/nginx/Dockerfile"
             "docker/php/app.crontab": "docker/php/app.crontab"
