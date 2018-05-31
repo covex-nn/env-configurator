@@ -12,6 +12,9 @@ declare(strict_types=1);
 namespace Covex\Environment\Composer;
 
 use Composer\Command\BaseCommand;
+use Composer\Composer;
+use Composer\Package\CompletePackage;
+use Composer\Package\PackageInterface;
 use Covex\Environment\Configurator\CommandAwareInterface;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ConfiguratorInterface;
@@ -24,6 +27,8 @@ use Symfony\Component\Yaml\Yaml;
 class ApplyCommand extends BaseCommand
 {
     protected const MANIFEST = 'manifest.yaml';
+
+    protected const REPOSITORY_PROVIDER = 'environment-repository';
 
     /**
      * @var ConfiguratorInterface[]
@@ -87,6 +92,30 @@ class ApplyCommand extends BaseCommand
                 );
             }
             $this->repositories[] = $repository;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function importRepositories(?Composer $composer): self
+    {
+        if (null !== $composer) {
+            $packages = $composer->getRepositoryManager()->getLocalRepository()->getPackages();
+            /** @var PackageInterface[] $packages */
+            foreach ($packages as $package) {
+                if (!$package instanceof CompletePackage) {
+                    continue;
+                }
+                $path = $package->getExtra()[self::REPOSITORY_PROVIDER] ?? null;
+                if (null !== $path) {
+                    $this->addRepository(
+                        $composer->getInstallationManager()->getInstallPath($package).'/'.$path
+                    );
+                }
+            }
         }
 
         return $this;
