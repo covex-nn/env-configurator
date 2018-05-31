@@ -35,6 +35,26 @@ Install `docker-composer` environment, equal to [covex-nn/docker-symfony](https:
 
     composer env:apply docker-ci
 
+## Own sequence repository
+
+Create a new composer package, add the following to your `composer.json`:
+
+```json
+{
+    "provide": {
+        "environment-repository": "^1.0"
+    },
+    "extra": {
+        "environment-repository": "src/Resources/repository"
+    }
+}
+```
+
+... where `extra.environment-repository` is a directory with sequences repository.
+Register you package in packagist, require a new package globaly with `composer global`.
+See how a [defalt repository](src/Resources/repository) is created here and create and
+use your own sequences to bootstrap your own applications.
+
 ## Configurators
 
 | Name | Description |
