@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace Covex\Environment\Composer;
 
 use Composer\Composer;
-use Composer\Package\CompletePackage;
-use Composer\Package\PackageInterface;
 use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
 use Covex\Environment\Configurator\ComposerConfigurator;
 use Covex\Environment\Configurator\CopyConfigurator;
@@ -24,8 +22,6 @@ use Covex\Environment\Configurator\YamlConfigurator;
 
 class CommandProvider implements CommandProviderCapability
 {
-    private const REPOSITORY_PROVIDER = 'environment-repository';
-
     /**
      * @var Composer
      */
@@ -40,6 +36,8 @@ class CommandProvider implements CommandProviderCapability
     {
         $apply = new ApplyCommand();
         $apply
+            ->importRepositories($this->composer)
+            ->importRepositories($this->composer->getPluginManager()->getGlobalComposer())
             ->addConfigurator('copy', new CopyConfigurator())
             ->addConfigurator('diff', new DiffConfigurator())
             ->addConfigurator('docker-compose', new DockerComposeConfigurator())
@@ -47,19 +45,6 @@ class CommandProvider implements CommandProviderCapability
             ->addConfigurator('yaml', new YamlConfigurator())
             ->addConfigurator('composer', new ComposerConfigurator())
         ;
-        $packages = $this->composer->getRepositoryManager()->getLocalRepository()->getPackages();
-        /** @var PackageInterface[] $packages */
-        foreach ($packages as $package) {
-            if (!$package instanceof CompletePackage) {
-                continue;
-            }
-            $path = $package->getExtra()[self::REPOSITORY_PROVIDER] ?? null;
-            if (null !== $path) {
-                $apply->addRepository(
-                    $this->composer->getInstallationManager()->getInstallPath($package).'/'.$path
-                );
-            }
-        }
 
         return [$apply];
     }
