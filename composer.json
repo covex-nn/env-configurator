@@ -19,6 +19,9 @@
         "composer/semver": "^1.0",
         "symfony/yaml": "^3.4 || ^4.0"
     },
+    "provides": {
+        "environment-repository": "^1.0"
+    },
     "require-dev": {
         "composer/composer": "^1.5"
     },
@@ -43,5 +46,8 @@
         "psr-4": {
             "Covex\\Environment\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "environment-repository": "src/Resources/repository"
     }
 }
