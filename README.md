@@ -27,9 +27,9 @@ Install Symfony Templating and enable `templating` in `config/packages/framework
 
     composer env:apply templating
 
-Install FOSUserBundle with user management via Sonata Admin:
+Install Sonata Admin with FOSUserBundle and user management:
 
-    composer env:apply users
+    composer env:apply admin
 
 Create `docker-compose` local environment:
 
