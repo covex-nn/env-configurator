@@ -18,6 +18,7 @@ use Composer\Package\PackageInterface;
 use Covex\Environment\Configurator\CommandAwareInterface;
 use Covex\Environment\Configurator\ConfiguratorException;
 use Covex\Environment\Configurator\ConfiguratorInterface;
+use Covex\Environment\Configurator\VfsIncompatibleInterface;
 use Covex\Stream\FileSystem;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -146,6 +147,9 @@ class ApplyCommand extends BaseCommand
                     $configurator = $this->getConfigurator($name);
                     foreach ($files as $source => $target) {
                         try {
+                            if ($configurator instanceof VfsIncompatibleInterface) {
+                                FileSystem::commit('target');
+                            }
                             $configurator->apply($item['source'].'/'.$source, 'target://'.$target);
                         } catch (ConfiguratorException $e) {
                             FileSystem::unregister('target');
@@ -161,8 +165,8 @@ class ApplyCommand extends BaseCommand
                 }
                 $output->writeln('');
             }
-            FileSystem::commit('target');
         }
+        FileSystem::commit('target');
         FileSystem::unregister('target');
     }
 

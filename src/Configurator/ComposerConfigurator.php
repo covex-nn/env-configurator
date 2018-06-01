@@ -16,7 +16,7 @@ use Composer\Factory;
 use Composer\Installer;
 use Composer\Json\JsonManipulator;
 
-class ComposerConfigurator implements ConfiguratorInterface, CommandAwareInterface
+class ComposerConfigurator implements ConfiguratorInterface, CommandAwareInterface, VfsIncompatibleInterface
 {
     /**
      * @var BaseCommand
