@@ -1,0 +1,13 @@
+sequence:
+    "Prepare files for bundles":
+        copy:
+            "config/packages/fos_user.yaml": "config/packages/fos_user.yaml"
+            "config/packages/security.yaml": "config/packages/security.yaml"
+            "config/routes/fos_user.yaml": "config/routes/fos_user.yaml"
+            "src/Admin/UserAdmin.php": "src/Admin/UserAdmin.php"
+            "src/Entity/User.php": "src/Entity/User.php"
+            "src/Repository/UserRepository.php": "src/Repository/UserRepository.php"
+            "templates/bundles/FOSUserBundle/Security/login.html.twig": "templates/bundles/FOSUserBundle/Security/login.html.twig"
+    "Install composer dependencies and copy files":
+        composer:
+            "composer.json": "composer.json"

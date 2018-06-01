@@ -1,0 +1,7 @@
+{
+    "require": {
+        "friendsofsymfony/user-bundle": "^2.1",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.5",
+        "symfony/swiftmailer-bundle": "^3.2"
+    }
+}

@@ -23,9 +23,13 @@ Arguments:
 
 ## Sequences
 
-Install `symfony/templating` with `symfony/twig-bundle` and enable `templating` in `config/packages/framework.yaml`:
+Install Symfony Templating and enable `templating` in `config/packages/framework.yaml`:
 
     composer env:apply templating
+
+Install FOSUserBundle with user management via Sonata Admin:
+
+    composer env:apply users
 
 Create `docker-compose` local environment:
 
