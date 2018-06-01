@@ -22,7 +22,3 @@ services:
           - mysql
         volumes:
           - .:/srv
-          - /composer/home
-
-volumes:
-    assets:
