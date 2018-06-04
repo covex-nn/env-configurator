@@ -33,9 +33,6 @@ WORKDIR /srv
 
 FROM base AS dev
 
-ENV APP_ENV="dev"
-ENV APP_DEBUG="1"
-
 COPY docker/php/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN pecl install xdebug \
