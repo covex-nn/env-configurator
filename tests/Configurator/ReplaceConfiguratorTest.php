@@ -57,6 +57,6 @@ class ReplaceConfiguratorTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'replace';
+        return __DIR__.\DIRECTORY_SEPARATOR.'replace';
     }
 }

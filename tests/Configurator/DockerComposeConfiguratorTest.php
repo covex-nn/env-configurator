@@ -127,6 +127,6 @@ class DockerComposeConfiguratorTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'docker-compose';
+        return __DIR__.\DIRECTORY_SEPARATOR.'docker-compose';
     }
 }

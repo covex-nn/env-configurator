@@ -56,6 +56,6 @@ class CopyConfiguratorTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'copy';
+        return __DIR__.\DIRECTORY_SEPARATOR.'copy';
     }
 }

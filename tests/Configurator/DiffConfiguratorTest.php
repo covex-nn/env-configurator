@@ -66,6 +66,6 @@ class DiffConfiguratorTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'diff';
+        return __DIR__.\DIRECTORY_SEPARATOR.'diff';
     }
 }

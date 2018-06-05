@@ -44,6 +44,6 @@ class YamlConfiguratorTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'yaml';
+        return __DIR__.\DIRECTORY_SEPARATOR.'yaml';
     }
 }

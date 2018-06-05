@@ -52,7 +52,7 @@ class ApplyCommandTest extends VfsTestCase
     {
         return [
             [__FILE__],
-            [__DIR__.DIRECTORY_SEPARATOR.'not-exists'],
+            [__DIR__.\DIRECTORY_SEPARATOR.'not-exists'],
         ];
     }
 
@@ -91,6 +91,6 @@ class ApplyCommandTest extends VfsTestCase
 
     protected function getVfsRoot(): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'repository';
+        return __DIR__.\DIRECTORY_SEPARATOR.'repository';
     }
 }
