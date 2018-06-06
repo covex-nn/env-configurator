@@ -13,3 +13,5 @@ sequence:
             "docker/php/app.crontab": "docker/php/app.crontab"
             "docker/php/xdebug.ini": "docker/php/xdebug.ini"
             "Dockerfile": "Dockerfile"
+        replace:
+            ".env.yaml": ".env"
