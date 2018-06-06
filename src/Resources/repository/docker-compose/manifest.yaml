@@ -15,4 +15,4 @@ sequence:
             "Dockerfile": "Dockerfile"
         replace:
             ".env.yaml": ".env"
-            ".env.yaml": ".env.dist"
+            ".env.dist.yaml": ".env.dist"
