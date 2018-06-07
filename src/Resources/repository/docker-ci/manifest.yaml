@@ -19,7 +19,7 @@ sequence:
             "docker/compose/Dockerfile": "docker/compose/Dockerfile"
             "docker/git/Dockerfile": "docker/git/Dockerfile"
             "docker/git/ssh_config": "docker/git/ssh_config"
-            "docker/nginx/backend_prod.conf.default": "docker/nginx/backend_prod.conf.default"
+            "docker/nginx/backend_prod.conf": "docker/nginx/backend_prod.conf"
             "var/cache/.gitignore": "var/cache/.gitignore"
             "var/log/.gitignore": "var/log/.gitignore"
             "var/sessions/.gitignore": "var/sessions/.gitignore"
