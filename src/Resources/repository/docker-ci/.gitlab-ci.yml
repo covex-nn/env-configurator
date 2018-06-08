@@ -115,22 +115,18 @@ stages:
 
 .phpunit: &phpunit
     stage: test
-    image: $CI_DOCKER_COMPOSE_IMAGE_WITH_TAG
+    image: $CI_SOURCE_IMAGE_WITH_TAG
     <<: *suffix-vars
     variables:
         ENV_SUFFIX: "_TEST"
     script:
-      - cd build
-      - docker-compose up -d source mysql
-      - docker-compose exec -T source composer install --prefer-dist --no-scripts --no-interaction
-      - docker-compose exec -T source phing app-deploy storage-prepare database-deploy -Dsymfony.env=test
-      - docker-compose exec -T source sh -c "curl -L -o phpunit.phar https://phar.phpunit.de/phpunit-6.phar && php phpunit.phar"
-    after_script:
-      - cd build
-      - docker-compose logs
-      - docker-compose down -v
+      - eval $(cat .build-env)
+      - cd /srv
+      - composer install --prefer-dist --no-scripts --no-interaction
+      - phpunit
     tags:
       - executor-docker
+    dependencies: []
 
 .secure-copy: &secure-copy
     stage: deploy
@@ -215,8 +211,6 @@ build:docker-nginx-image-master:
 test:phpunit-master:
     <<: *phpunit
     <<: *job-policy-master
-    dependencies:
-      - build:docker-compose-master
 
 deploy:secure-copy-master:
     <<: *secure-copy
@@ -259,8 +253,6 @@ build:docker-nginx-image-production:
 test:phpunit-production:
     <<: *phpunit
     <<: *job-policy-production
-    dependencies:
-      - build:docker-compose-production
 
 deploy:secure-copy-production:
     <<: *secure-copy
