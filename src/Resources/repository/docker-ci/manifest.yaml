@@ -13,8 +13,9 @@ sequence:
             ".gitignore.txt": ".gitignore"
         copy:
             ".editorconfig": ".editorconfig"
-            "build.xml": "build.xml"
             ".gitlab-ci.yml": ".gitlab-ci.yml"
+            ".php_cs.dist": ".php_cs.dist"
+            "build.xml": "build.xml"
             "docker-compose.deploy.yml": "docker-compose.deploy.yml"
             "docker/compose/Dockerfile": "docker/compose/Dockerfile"
             "docker/git/Dockerfile": "docker/git/Dockerfile"
