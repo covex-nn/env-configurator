@@ -13,6 +13,9 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
 
 services:
+    _defaults:
+        autowire: true
+
     app.admin.user:
         class: App\Admin\UserAdmin
         arguments: [ ~, App\Entity\User, ~ ]
