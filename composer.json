@@ -1,8 +1,9 @@
 {
     "name": "covex-nn/environment",
     "type": "composer-plugin",
-    "descrition": "",
+    "descrition": "Bootstrap new Symfony Flex applications",
     "keywords": [
+        "configurator",
         "flex"
     ],
     "license": "MIT",
@@ -19,11 +20,11 @@
         "composer/semver": "^1.0",
         "symfony/yaml": "^3.4 || ^4.0"
     },
-    "provide": {
-        "environment-repository": "^1.0"
-    },
     "require-dev": {
         "composer/composer": "^1.5"
+    },
+    "suggest": {
+        "covex-nn/environment-repository": "Repository with docker related sequences"
     },
     "config": {
         "preferred-install": {
@@ -35,8 +36,7 @@
         "branch-alias": {
             "dev-master": "1.x-dev"
         },
-        "class": "Covex\\Environment\\Composer\\EnvironmentPlugin",
-        "environment-repository": "src/Resources/repository"
+        "class": "Covex\\Environment\\Composer\\EnvironmentPlugin"
     },
     "autoload": {
         "psr-4": {

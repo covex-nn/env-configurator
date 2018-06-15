@@ -1,7 +1,0 @@
-sequence:
-    "Install symfony/templating":
-        composer:
-            "composer.json": "composer.json"
-    "Enable templating":
-        yaml:
-            "config/packages/framework.yaml": "config/packages/framework.yaml"

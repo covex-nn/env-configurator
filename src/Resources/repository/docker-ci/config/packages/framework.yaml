@@ -1,5 +1,0 @@
-parameters:
-    env(ENV_secret): 'ThisTokenIsNotSoSecretChangeIt'
-
-framework:
-    secret: '%env(ENV_secret)%'

@@ -1,3 +1,0 @@
-+ * text=auto
-+ /.travis.yml export-ignore
-+ /README.md export-ignore
