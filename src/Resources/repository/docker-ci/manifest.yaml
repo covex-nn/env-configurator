@@ -21,6 +21,7 @@ sequence:
             "docker/git/Dockerfile": "docker/git/Dockerfile"
             "docker/git/ssh_config": "docker/git/ssh_config"
             "docker/nginx/backend_prod.conf": "docker/nginx/backend_prod.conf"
+            "docker/php/app.crontab": "docker/php/app.crontab"
             "var/cache/.gitignore": "var/cache/.gitignore"
             "var/log/.gitignore": "var/log/.gitignore"
             "var/sessions/.gitignore": "var/sessions/.gitignore"
