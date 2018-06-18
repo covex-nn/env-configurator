@@ -21,27 +21,10 @@ Arguments:
   target    Target directory [default: "getcwd()"]
 ```
 
-## Sequences
+## Sequence repository
 
-Install Symfony Templating and enable `templating` in `config/packages/framework.yaml`:
-
-    composer env:apply templating
-
-Install Sonata Admin with FOSUserBundle and user management:
-
-    composer env:apply admin
-
-Create `docker-compose` local environment:
-
-    composer env:apply docker-compose
-
-Install `docker-composer` environment, equal to [covex-nn/docker-symfony](https://github.com/covex-nn/docker-workflow-symfony)
-
-    composer env:apply docker-ci
-
-## Own sequence repository
-
-Create a new composer package, add the following to your `composer.json`:
+Try already existing repository with `composer global require covex-nn/environment-repository`
+or create your own composer package, add the following to your `composer.json`:
 
 ```json
 {
