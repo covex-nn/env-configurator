@@ -36,11 +36,9 @@ $rules = [
     'compact_nullable_typehint' => true,
 ];
 
-
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('vendor')
-    ->exclude('src/Resources')
 ;
 
 return PhpCsFixer\Config::create()
